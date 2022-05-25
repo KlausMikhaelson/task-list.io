@@ -1,7 +1,11 @@
+
+
 window.addEventListener('load', () => {
+    todos = JSON.parse(localStorage.getItem('todos')) || [];
     const form = document.querySelector("#new-task-form");
     const input = document.querySelector("#new-task-input");
     const list_el = document.querySelector("#tasks");
+    const LOCAL_STORAGE_KEY = 'task-todos'
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         const task= input.value;
@@ -17,6 +21,18 @@ window.addEventListener('load', () => {
         const task_content_el = document.createElement("div");
         task_content_el.classList.add("content");
 
+        useEffect(() => {
+          const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
+        
+          
+        }, [tasks])
+        
+
+        useEffect(() => {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(tasks))
+        
+        }, [tasks])
+        
 
         task_el.appendChild(task_content_el);
 
@@ -61,8 +77,8 @@ window.addEventListener('load', () => {
         });
         task_delete_el.addEventListener('click', () => {
             list_el.removeChild(task_el);
-        })
+        });
 
-    })
+    });
 
-})
+});
